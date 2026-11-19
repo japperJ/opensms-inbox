@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="back" href="/">← Inbox</a>
+
+<article class="card">
+  <h2>
+    {{ message.sender or "Unknown sender" }}
+    {% if message.event == "webhook.test" %}<span class="badge">test</span>{% endif %}
+  </h2>
+
+  <dl>
+    <dt>Received</dt>
+    <dd>{{ (message.received_at or message.stored_at)|pretty_time }}</dd>
+    <dt>Sent (SMSC)</dt>
+    <dd>{{ message.sent_at|pretty_time or "—" }}</dd>
+    <dt>Parts</dt>
+    <dd>{{ message.parts or 1 }}</dd>
+    <dt>SIM</dt>
+    <dd>{{ message.sim or "—" }}</dd>
+    <dt>Event</dt>
+    <dd>{{ message.event }}</dd>
+    <dt>Delivery</dt>
+    <dd class="mono">{{ message.delivery_id or "—" }}</dd>
+  </dl>
+
+  <pre class="body">{{ message.body or "" }}</pre>
+
+  <details>
+    <summary>Raw payload</summary>
+    <pre class="raw">{{ message.raw }}</pre>
+  </details>
+
+  <form method="post" action="/messages/{{ message.id }}/delete"
+        onsubmit="return confirm('Delete this message?')">
+    <button class="danger" type="submit">Delete message</button>
+  </form>
+</article>
+{% endblock %}

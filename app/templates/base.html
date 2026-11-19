@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/htmx.min.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <h1><a href="/">{{ title }}</a></h1>
+    <a class="hint" href="https://github.com/daslearning-org/OpenSMS"
+       target="_blank" rel="noreferrer">OpenSMS</a>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    Receives OpenSMS webhooks at <code>/hook</code>.
+  </footer>
+</body>
+</html>

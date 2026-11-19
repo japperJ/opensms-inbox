@@ -1,0 +1,12 @@
+services:
+  inbox:
+    build: .
+    ports:
+      - "8099:8099"
+    volumes:
+      - ./data:/data
+    environment:
+      OPENMS_INBOX_SECRET: "change-me"
+      # OPENMS_INBOX_USER: "admin"
+      # OPENMS_INBOX_PASSWORD: "change-me"
+    restart: unless-stopped

@@ -1,0 +1,30 @@
+{% if messages %}
+<ul class="list">
+  {% for message in messages %}
+  <li>
+    <a class="item" href="/messages/{{ message.id }}">
+      <span class="row">
+        <span class="sender">{{ message.sender or "Unknown sender" }}</span>
+        {% if message.event == "webhook.test" %}
+          <span class="badge">test</span>
+        {% endif %}
+        <span class="time">{{ (message.received_at or message.stored_at)|pretty_time }}</span>
+      </span>
+      <span class="preview">
+        {%- set body = message.body or "" -%}
+        {{ body[:140] }}{% if body|length > 140 %}…{% endif %}
+      </span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p class="empty">
+  No messages yet. Configure an OpenSMS webhook to
+  <code>http://{{ request.url.netloc }}/hook</code>.
+</p>
+{% endif %}
+<p class="count">
+  {{ total }} message{{ "" if total == 1 else "s" }}
+  {%- if query %} for “{{ query }}”{% endif %}
+</p>

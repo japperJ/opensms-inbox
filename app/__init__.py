@@ -1,0 +1,1 @@
+"""OpenSMS Inbox application package."""

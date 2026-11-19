@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<form class="search" method="get" action="/">
+  <input type="search" name="q" value="{{ query }}"
+         placeholder="Search sender or text…" aria-label="Search messages">
+  <button type="submit">Search</button>
+  {% if query %}<a class="clear" href="/">Clear</a>{% endif %}
+</form>
+
+<div id="messages"
+     hx-get="/partials/messages?q={{ query|urlencode }}&page={{ page }}"
+     hx-trigger="every 5s"
+     hx-swap="innerHTML">
+  {% include "partials/messages.html" %}
+</div>
+
+{% if pages > 1 %}
+<nav class="pager">
+  {% if page > 1 %}
+    <a href="/?q={{ query|urlencode }}&page={{ page - 1 }}">← Newer</a>
+  {% else %}<span></span>{% endif %}
+  <span>Page {{ page }} / {{ pages }}</span>
+  {% if page < pages %}
+    <a href="/?q={{ query|urlencode }}&page={{ page + 1 }}">Older →</a>
+  {% else %}<span></span>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}
