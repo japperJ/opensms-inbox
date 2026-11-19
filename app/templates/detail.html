@@ -4,7 +4,7 @@
 
 <article class="card">
   <h2>
-    {{ message.sender or "Unknown sender" }}
+    {{ message.sender or ("Test webhook" if message.event == "webhook.test" else "Unknown sender") }}
     {% if message.event == "webhook.test" %}<span class="badge">test</span>{% endif %}
   </h2>
 

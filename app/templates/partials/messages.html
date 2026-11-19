@@ -4,7 +4,7 @@
   <li>
     <a class="item" href="/messages/{{ message.id }}">
       <span class="row">
-        <span class="sender">{{ message.sender or "Unknown sender" }}</span>
+        <span class="sender">{{ message.sender or ("Test webhook" if message.event == "webhook.test" else "Unknown sender") }}</span>
         {% if message.event == "webhook.test" %}
           <span class="badge">test</span>
         {% endif %}
